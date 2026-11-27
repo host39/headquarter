@@ -102,3 +102,7 @@ Setup instructions will be added once the initial code lands.
 ## Contributing
 
 This is a personal home lab project. Ideas and issues are welcome in the issue tracker.
+
+## License
+
+Headquarter is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). You may use, modify, and share it for noncommercial purposes. Commercial use is not permitted under this license.
