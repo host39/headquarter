@@ -47,6 +47,22 @@ A small, lightweight program or script installed on each managed device. It:
 - Exposes a set of **capabilities** that Headquarter can call to manage the device.
 - Replaces the need to SSH into the box for routine tasks. (A direct remote shell route is possible as an optional capability, but the main goal is structured actions, not raw SSH.)
 
+### Lightweight by design
+
+The agent must be a **small, lightweight runner** that uses close to zero resources when idle, so it can run on low-power devices (routers, Raspberry Pis, small SBCs, old hardware) without affecting them.
+
+- **Near-zero idle cost.** No busy loops or constant polling. It sleeps until a scheduled collection is due or the hub sends a command.
+- **Small footprint.** Minimal memory and disk use, few or no runtime dependencies, ideally a single small binary or script.
+- **Configurable collection intervals** so slow or constrained devices can report less often.
+- **Does work only on demand** for anything expensive (logs, container inspection, scans).
+
+Its core job on every device:
+
+- **Reachability.** Report whether the device is online and reachable (heartbeat to the hub, so the hub knows when it goes silent).
+- **Network identity.** Collect all of the device's IP addresses and interfaces.
+- **Status and metrics.** CPU, memory, disk, network, temperatures, uptime, and service status.
+- **Actions.** Execute management actions on the device when the hub asks, for example editing `/etc/hosts`, restarting a service, or managing containers where supported.
+
 ### Capabilities depend on the device
 
 Not every device can do everything. The agent reports which capabilities it supports, and the UI only shows actions that make sense for that device.
@@ -54,6 +70,8 @@ Not every device can do everything. The agent reports which capabilities it supp
 | Capability | Linux server | Raspberry Pi | OpenWrt router | Notes |
 |------------|:-:|:-:|:-:|-------|
 | System metrics (CPU, memory, disk, network, temps) | ✓ | ✓ | ✓ | Baseline for every agent |
+| Online / reachability and IP addresses | ✓ | ✓ | ✓ | Baseline for every agent |
+| Edit `/etc/hosts` | ✓ | ✓ | ✓ | |
 | System services (systemd / init.d) | ✓ | ✓ | ✓ | Router uses init.d / procd |
 | Docker containers | ✓ | ✓ | ✗ | Routers usually do not run Docker |
 | Router hosts / DHCP leases / DNS entries | ✗ | ✗ | ✓ | Router-only |
