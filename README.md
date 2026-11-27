@@ -4,6 +4,8 @@
 
 > **Status:** Early planning. This README describes the vision and intended scope. Nothing below is implemented yet.
 
+> **Direction update:** Headquarter is expanding from managing a single machine to managing the whole network. A central hub (UI and API) plus a small agent installed on each device (servers, Raspberry Pis, routers, and so on), with device-specific capabilities and separate admin and user views. See [docs/multi-node-architecture.md](docs/multi-node-architecture.md).
+
 ---
 
 ## Why
@@ -79,6 +81,10 @@ Headquarter will have control over the Docker socket, which is effectively root 
 ## Roadmap
 
 - [ ] Decide on tech stack
+- [ ] Design the hub and agent split (see [multi-node architecture](docs/multi-node-architecture.md))
+- [ ] Minimal agent: enrollment, heartbeat, system metrics
+- [ ] Admin view of all machines vs user view of available services
+- [ ] Capability modules per device type (Docker, systemd, OpenWrt router hosts)
 - [ ] Project scaffolding and local dev setup
 - [ ] App launcher with static configuration
 - [ ] Docker host connection and container listing
